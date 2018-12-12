@@ -1,11 +1,35 @@
+#include "Arduino.h"
 #define NUM_INPUTS 18
 
 // keys
 // edit this array to change the keys pressed 
 int keys[NUM_INPUTS] = {
-  'a','s','d','f','g','h',    // top of makey makey board (up, down, left, right, space, click)
-  'q','w','e','r','t', 'y',   // left side of female header
-  'z','x','c','v','b','n'     // right side of female header
+  // top side of the makey makey board
+
+  KEY_UP_ARROW,      // up arrow pad
+  KEY_DOWN_ARROW,    // down arrow pad
+  KEY_LEFT_ARROW,    // left arrow pad
+  KEY_RIGHT_ARROW,   // right arrow pad
+  ' ',               // space button pad
+  MOUSE_LEFT,        // click button pad
+  
+  // female header on the back left side
+  
+  'w',                // pin D5
+  'a',                // pin D4
+  's',                // pin D3
+  'd',                // pin D2
+  'f',                // pin D1
+  'g',                // pin D0
+  
+  // female header on the back right side
+  
+  MOUSE_MOVE_UP,      // pin A5
+  MOUSE_MOVE_DOWN,    // pin A4
+  MOUSE_MOVE_LEFT,    // pin A3
+  MOUSE_MOVE_RIGHT,   // pin A2
+  MOUSE_LEFT,         // pin A1
+  MOUSE_RIGHT         // pin A0
 };
 
 // cap sense threshold for each pin
@@ -19,13 +43,18 @@ int capThresholds[NUM_INPUTS] = {
   1, 1, 1, 1, 1, 1,
 };
 
+// Pin Numbers
+// input pin numbers for kickstarter production board
 int pinNumbers[NUM_INPUTS] = {
-  12, 8, 13, 15, 7, 6,     
-  5, 4, 3, 2, 1, 0,        
-  23, 22, 21, 20, 19, 18   
+  12, 8, 13, 15, 7, 6,     // top of makey makey board
+  5, 4, 3, 2, 1, 0,        // left side of female header, KEYBOARD
+  23, 22, 21, 20, 19, 18   // right side of female header, MOUSE
 };
 
+
 const int outputPin = 14; // pin D14, leftmost pin on the output header
+// TODO: restrict pin 14 to actual key-presses only, and restore pin 16 going high to mouse moves
+// TODO: add a way to swith cap and resistive on fly maybe, or to have a mix
 
 boolean pressed[NUM_INPUTS];
 
