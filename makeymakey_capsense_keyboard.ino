@@ -1,6 +1,17 @@
 #include "Arduino.h"
 #define NUM_INPUTS 18
 
+// id numbers for mouse movement inputs (used below)
+#define MOUSE_MOVE_UP       -1 
+#define MOUSE_MOVE_DOWN     -2
+#define MOUSE_MOVE_LEFT     -3
+#define MOUSE_MOVE_RIGHT    -4
+
+#if (ARDUINO > 10605)
+  #include <Keyboard.h>
+  #include <Mouse.h>
+#endif
+
 // keys
 // edit this array to change the keys pressed 
 int keys[NUM_INPUTS] = {
@@ -55,6 +66,7 @@ int pinNumbers[NUM_INPUTS] = {
 const int outputPin = 14; // pin D14, leftmost pin on the output header
 // TODO: restrict pin 14 to actual key-presses only, and restore pin 16 going high to mouse moves
 // TODO: add a way to swith cap and resistive on fly maybe, or to have a mix
+// OR just use https://github.com/DavidRieman/MaKeyMaKey_Flexible
 
 boolean pressed[NUM_INPUTS];
 
@@ -202,4 +214,3 @@ uint8_t readCapacitivePin(int pinToMeasure) {
 
   return cycles;
 }
-
